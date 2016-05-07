@@ -235,8 +235,9 @@ module Rack
     def set_cookie_header!(header, key, value)
       case value
       when Hash
-        domain  = "; domain="  + value[:domain] if value[:domain]
-        path    = "; path="    + value[:path]   if value[:path]
+        domain  = "; domain=#{value[:domain]}"   if value[:domain]
+        path    = "; path=#{value[:path]}"       if value[:path]
+        max_age = "; max-age=#{value[:max_age]}" if value[:max_age]
         # According to RFC 2109, we need dashes here.
         # N.B.: cgi.rb uses spaces...
         expires = "; expires=" +
